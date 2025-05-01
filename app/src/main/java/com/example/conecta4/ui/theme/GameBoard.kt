@@ -1,5 +1,6 @@
 package com.example.conecta4.ui.theme
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,16 +10,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.conecta4.*
-import androidx.compose.foundation.layout.Row
+
 @Composable
 fun Conecta4Game() {
     var board by remember { mutableStateOf(Board()) }
     var winner by remember { mutableStateOf<Player?>(null) }
-    var isPlayerTurn by remember { mutableStateOf(true) } // Para manejar el turno del jugador y la máquina
+    var isPlayerTurn by remember { mutableStateOf(true) }
     var isDraw by remember { mutableStateOf(false) }
+    var navigateToVictory by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     // Función para que la máquina haga un movimiento aleatorio
     fun machineMove() {
         if (winner == null) {
@@ -27,7 +32,7 @@ fun Conecta4Game() {
             }
             if (availableColumns.isNotEmpty()) {
                 val randomColumn = availableColumns.random()
-                board = board.place(randomColumn)
+                board = board.place(randomColumn, Player.Maquina)
                 winner = board.checkVictory()
             }
         }
@@ -37,7 +42,7 @@ fun Conecta4Game() {
     LaunchedEffect(board) {
         if (!isPlayerTurn && winner == null) {
             machineMove()
-            isPlayerTurn = true // Luego de la jugada de la máquina, pasa el turno al jugador
+            isPlayerTurn = true
         }
     }
 
@@ -51,8 +56,10 @@ fun Conecta4Game() {
         checkForWinner()
     }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(16.dp)) {
-        // Cambié el texto para que diga "Turno de: Jugador" o "Turno de: Máquina"
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp)
+    ) {
         Text(
             "Turno de: ${if (isPlayerTurn) "Jugador" else "Máquina"}",
             fontSize = 24.sp
@@ -69,8 +76,8 @@ fun Conecta4Game() {
                             .padding(4.dp)
                             .clickable(enabled = winner == null && isPlayerTurn) {
                                 try {
-                                    board = board.place(col)
-                                    isPlayerTurn = false // Después de la jugada del jugador, pasa el turno a la máquina
+                                    board = board.place(col, Player.Jugador) //
+                                    isPlayerTurn = false
                                 } catch (_: Exception) { }
                             }
                             .background(
@@ -86,11 +93,9 @@ fun Conecta4Game() {
             }
         }
 
-        // Verificar y mostrar el ganador
         when {
             winner != null -> {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("¡Ganador: ${winner!!.name}!", fontSize = 24.sp, color = Color.Green)
+                navigateToVictory = true
             }
             isDraw -> {
                 Spacer(modifier = Modifier.height(16.dp))
@@ -98,8 +103,16 @@ fun Conecta4Game() {
             }
         }
     }
+
+    // Aquí lanzamos la VictoryActivity cuando hay un ganador
+    LaunchedEffect(navigateToVictory) {
+        if (navigateToVictory && winner != null) {
+            val winnerName = winner?.name ?: "Desconocido"
+            val intent = Intent(context, VictoryActivity::class.java)
+            intent.putExtra("WINNER", winnerName)
+            context.startActivity(intent)
+        }
+    }
 }
-
-
 
 

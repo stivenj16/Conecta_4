@@ -1,0 +1,24 @@
+<!-- res/layout/activity_victory.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFF">
+
+    <TextView
+        android:id="@+id/victoryMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Ganaste!"
+        android:textSize="32sp"
+        android:textColor="#000" />
+
+    <Button
+        android:id="@+id/playAgainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jugar de nuevo"
+        android:layout_marginTop="24dp"/>
+</LinearLayout>
