@@ -2,7 +2,7 @@
 
 Este es un proyecto de ejemplo del clásico juego **Conecta 4**, desarrollado en Kotlin para Android usando Jetpack Compose. El jugador humano compite contra la máquina en turnos alternados.
 
-## 🧩 Funcionalidades
+#Funcionalidades
 
 - Tablero de 6 filas por 7 columnas.
 - Turnos automáticos entre Jugador y Máquina.
@@ -11,19 +11,19 @@ Este es un proyecto de ejemplo del clásico juego **Conecta 4**, desarrollado en
 - Validación de columna llena.
 - Mensaje de ganador al final de la partida.
 
-## 🛠️ Tecnologías
+# Tecnologías
 
 - Kotlin
 - Jetpack Compose
 - Android Studio
 
-## ▶️ Cómo ejecutar
+#▶️ Cómo ejecutar
 
 1. Clona este repositorio.
 2. Abre el proyecto en Android Studio.
 3. Ejecuta la aplicación en un emulador o dispositivo físico.
 
-## 📦 Estructura del proyecto
+#Estructura del proyecto
 
 - `MainActivity.kt`: Lanza la interfaz principal.
 - `Board.kt`: Contiene la lógica del juego (movimientos, turnos, verificación de victoria).
