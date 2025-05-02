@@ -17,7 +17,7 @@ Este es un proyecto de ejemplo del clásico juego **Conecta 4**, desarrollado en
 - Jetpack Compose
 - Android Studio
 
-#▶️ Cómo ejecutar
+# Cómo ejecutar
 
 1. Clona este repositorio.
 2. Abre el proyecto en Android Studio.
@@ -27,5 +27,6 @@ Este es un proyecto de ejemplo del clásico juego **Conecta 4**, desarrollado en
 
 - `MainActivity.kt`: Lanza la interfaz principal.
 - `Board.kt`: Contiene la lógica del juego (movimientos, turnos, verificación de victoria).
-- `Conecta4Game.kt`: Composable que construye la UI del tablero y gestiona la interacción.
-- `Player.kt`: Define los jugadores, las filas y columnas del tablero.
+- `GameLogic.kt`: Composable que construye la UI del tablero y gestiona la interacción.
+- `Models.kt`: Define los jugadores, las filas y columnas del tablero.
+- `VictoryActivity.kt`: Contiene la logica de cual jugador gana.
