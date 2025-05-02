@@ -1,17 +1,18 @@
 package com.example.conecta4
-
+// Representa el tablero del juego, guardando la lista de movimientos realizados.
 class Board(val moves: List<Move> = emptyList()) {
-
+ // Devuelve el jugador que tiene el turno actual.
     fun currentPlayer(): Player =
         if (moves.isEmpty()) Player.Jugador else moves.last().player.opponent()
-
+  // Intenta colocar una ficha en la columna indicada para el jugador.
     fun place(column: BoardColumn, player: Player): Board {
         if (moves.count { it.column == column } >= BoardRow.values().size) {
             throw IllegalArgumentException("La columna $column está llena.")
         }
+        // Devuelve un nuevo tablero con el movimiento agregado.
         return Board(moves + Move(player, column))
     }
-
+   // Devuelve qué jugador ocupa una celda específica del tablero.
     fun getCell(row:BoardRow, column: BoardColumn): Player? {
         val pile = moves.filter { it.column == column }
         return if (pile.size > row.ordinal) pile[row.ordinal].player else null
